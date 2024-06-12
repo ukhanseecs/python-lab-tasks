@@ -32,15 +32,15 @@ current_state(current_matrix)
 #if i < 3 and j < 3:
 
 #working
-# def check_validity(current_matrix):
-#     i=int(input("row:"))
-#     j=int(input("column: "))
-#     if current_matrix[i][j]==0:
-#         print("valid move")
-#     else:
-#         print("inavlid move")
+def check_validity(current_matrix):
+    i=int(input("row:"))
+    j=int(input("column: "))
+    if current_matrix[i][j]==0:
+        print("valid move")
+    else:
+        print("inavlid move")
 
-#check_validity(current_matrix)
+check_validity(current_matrix)
 
 
 #else:
@@ -53,7 +53,7 @@ current_state(current_matrix)
 # def game_status(x):
 
 
-def check_win(current_matrix):
+def get_score(current_matrix):
     #get the counnt of x's and o's in row 1
     #make a loop
     #that reads through each row
@@ -90,8 +90,6 @@ def check_win(current_matrix):
                     o_diag2[i] +=1
 
 
-
-
     print("x row: ", x_row)
     print("x column: ", x_col)
     print("o row: ", o_row)
@@ -102,42 +100,11 @@ def check_win(current_matrix):
     print("o diag 2: ", o_diag2)
 
 
-check_win(current_matrix)
+
+
+get_score(current_matrix)
 
 
 
-#     # 6 of row done here
-#     row_count=1
-#     for row in current_matrix:
-#         xr_count = row.count('x')
-#         or_count = row.count('o')
-#         print("x in row", row_count, "is", xr_count)
-#         print("o in row", row_count, "is", or_count)
-#     #     if xr_count == 3:
-#     #         print("player1 has won the game")
-#     #     elif or_count == 3:
-#     #         print("player2 has won the game")
-#     #     else:
-#     #         continue
-#         row_count +=1
-
-
-#     # 6 of column done here cant use column.count
-#     column_count=1
-#     for column in current_matrix:
-#         xc_count = column.count('x')
-#         oc_count = column.count('o')
-#         # print("x in column", column_count, "is", xc_count)
-#         # print("o in column", column_count, "is", oc_count)
-#         if xc_count == 3:
-#             print("player1 has won the game")
-#         elif oc_count == 3:
-#             print("player2 has won the game")
-#         else:
-#             continue
-#         column_count +=1
-
-#     # 4 of diagonal
-# check_win(current_matrix)
 
 
