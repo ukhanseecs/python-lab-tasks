@@ -3,8 +3,8 @@
 
 current_matrix = [
     ['x', 'x', 'x'],
-    [0, 0, 0],
-    [0, 0, 0]
+    ['o', 0, 0],
+    ['o', 0, 0]
 ]
 
 
@@ -76,33 +76,21 @@ def check_win(current_matrix):
             if current_matrix[i][j]=='x':
                 x_row[i] += 1
                 x_col[j] += 1
-                if i==j==1:
+                if i==j:
                     x_diag1[i] +=1
-                    x_diag2[i] +=1
-                elif i==j:
-                    x_diag1[i] +=1
-                elif i-j==2 or j-i==2 or i==j==1:
+                elif i+j==2:
                     x_diag2[i] +=1
 
             elif current_matrix[i][j]=='o':
                 o_row[i] += 1
                 o_col[j] += 1
-            else:
                 if i==j:
-                    if current_matrix[i][j]=='x':
-                        x_diag1[i] +=1
-                    elif current_matrix[i][j]=='o':
-                        o_diag1[i] +=1
-                    else:
-                        continue
+                    o_diag1[i] +=1
+                elif i+j==2:
+                    o_diag2[i] +=1
 
-                elif i-j==2 or j-i==2 or i==j==1:
-                    if current_matrix[i][j]=='x':
-                        x_diag2[i] +=1
-                    elif current_matrix[i][j]=='o':
-                        o_diag2[j] =+1
-                    else:
-                        continue
+
+
 
     print("x row: ", x_row)
     print("x column: ", x_col)
