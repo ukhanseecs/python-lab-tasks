@@ -2,7 +2,7 @@
 # Create a 2D array of 3x3 to represent the game board
 
 current_matrix = [
-    [0, 0, 0],
+    ['x', 'x', 'x'],
     [0, 0, 0],
     [0, 0, 0]
 ]
@@ -30,23 +30,126 @@ current_state(current_matrix)
 # j=0   #later i and j will be user input
 
 #if i < 3 and j < 3:
-def check_validity(current_matrix):
-    i=int(input("row:"))
-    j=int(input("column: "))
-    if current_matrix[i][j]==0:
-        print("valid move")
-    else:
-        print("inavlid move")
 
-check_validity(current_matrix)
+#working
+# def check_validity(current_matrix):
+#     i=int(input("row:"))
+#     j=int(input("column: "))
+#     if current_matrix[i][j]==0:
+#         print("valid move")
+#     else:
+#         print("inavlid move")
+
+#check_validity(current_matrix)
+
+
 #else:
     #print("move is invalid")
 
 
 #Create a function to check if a player has won the game.
-def game_status(x):
+# Maintain a count of the number of symbols for each player in each row, column, and diagonal.
+# If any player has a count of 3 in a row, column, or diagonal, they have won the game.
+# def game_status(x):
+
+
+def check_win(current_matrix):
+    #get the counnt of x's and o's in row 1
+    #make a loop
+    #that reads through each row
+    #and counts number of x and o
+    # three rows three columns two diagonals so total 8
+    # two players
+    # maintain 16 counts
+
+    x_row = [0, 0, 0]
+    x_col = [0, 0, 0]
+    o_row = [0, 0, 0]
+    o_col = [0, 0, 0]
+    x_diag1 = [0, 0, 0]
+    o_diag1 = [0, 0, 0]
+    x_diag2 = [0, 0, 0]
+    o_diag2 = [0, 0, 0]
+
+    for i in range(0,3):
+        for j in range(0,3):
+            if current_matrix[i][j]=='x':
+                x_row[i] += 1
+                x_col[j] += 1
+                if i==j==1:
+                    x_diag1[i] +=1
+                    x_diag2[i] +=1
+                elif i==j:
+                    x_diag1[i] +=1
+                elif i-j==2 or j-i==2 or i==j==1:
+                    x_diag2[i] +=1
+
+            elif current_matrix[i][j]=='o':
+                o_row[i] += 1
+                o_col[j] += 1
+            else:
+                if i==j:
+                    if current_matrix[i][j]=='x':
+                        x_diag1[i] +=1
+                    elif current_matrix[i][j]=='o':
+                        o_diag1[i] +=1
+                    else:
+                        continue
+
+                elif i-j==2 or j-i==2 or i==j==1:
+                    if current_matrix[i][j]=='x':
+                        x_diag2[i] +=1
+                    elif current_matrix[i][j]=='o':
+                        o_diag2[j] =+1
+                    else:
+                        continue
+
+    print("x row: ", x_row)
+    print("x column: ", x_col)
+    print("o row: ", o_row)
+    print("o column: ", o_col)
+    print("x diag 1: ", x_diag1)
+    print("o diag 1: ", o_diag1)
+    print("x diag 2: ", x_diag2)
+    print("o diag 2: ", o_diag2)
+
+
+check_win(current_matrix)
 
 
 
-#Create a function to check if the game has ended in a draw.
+#     # 6 of row done here
+#     row_count=1
+#     for row in current_matrix:
+#         xr_count = row.count('x')
+#         or_count = row.count('o')
+#         print("x in row", row_count, "is", xr_count)
+#         print("o in row", row_count, "is", or_count)
+#     #     if xr_count == 3:
+#     #         print("player1 has won the game")
+#     #     elif or_count == 3:
+#     #         print("player2 has won the game")
+#     #     else:
+#     #         continue
+#         row_count +=1
+
+
+#     # 6 of column done here cant use column.count
+#     column_count=1
+#     for column in current_matrix:
+#         xc_count = column.count('x')
+#         oc_count = column.count('o')
+#         # print("x in column", column_count, "is", xc_count)
+#         # print("o in column", column_count, "is", oc_count)
+#         if xc_count == 3:
+#             print("player1 has won the game")
+#         elif oc_count == 3:
+#             print("player2 has won the game")
+#         else:
+#             continue
+#         column_count +=1
+
+#     # 4 of diagonal
+# check_win(current_matrix)
+
 
