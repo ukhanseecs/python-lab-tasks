@@ -2,9 +2,9 @@
 # Create a 2D array of 3x3 to represent the game board
 
 current_matrix = [
-    ['x', 'x', 'x'],
-    ['o', 0, 0],
-    ['o', 0, 0]
+    ['x', 'o', 'x'],
+    ['o', 'x', 0],
+    ['o', 0, 'x']
 ]
 
 
@@ -31,29 +31,19 @@ current_state(current_matrix)
 
 #if i < 3 and j < 3:
 
-#working
-def check_validity(current_matrix):
-    i=int(input("row:"))
-    j=int(input("column: "))
-    if current_matrix[i][j]==0:
-        print("valid move")
-    else:
-        print("inavlid move")
+#function to check move is correct
+# def check_validity(current_matrix):
+#     i=int(input("row:"))
+#     j=int(input("column: "))
+#     if current_matrix[i][j]==0:
+#         print("valid move")
+#     else:
+#         print("inavlid move")
 
-check_validity(current_matrix)
+# check_validity(current_matrix)
 
-
-#else:
-    #print("move is invalid")
-
-
-#Create a function to check if a player has won the game.
-# Maintain a count of the number of symbols for each player in each row, column, and diagonal.
-# If any player has a count of 3 in a row, column, or diagonal, they have won the game.
-# def game_status(x):
-
-
-def get_score(current_matrix):
+#function to get score
+def check_win(current_matrix):
     #get the counnt of x's and o's in row 1
     #make a loop
     #that reads through each row
@@ -66,10 +56,10 @@ def get_score(current_matrix):
     x_col = [0, 0, 0]
     o_row = [0, 0, 0]
     o_col = [0, 0, 0]
-    x_diag1 = [0, 0, 0]
-    o_diag1 = [0, 0, 0]
-    x_diag2 = [0, 0, 0]
-    o_diag2 = [0, 0, 0]
+    x_diag1 = [0]
+    o_diag1 = [0]
+    x_diag2 = [0]
+    o_diag2 = [0]
 
     for i in range(0,3):
         for j in range(0,3):
@@ -77,33 +67,36 @@ def get_score(current_matrix):
                 x_row[i] += 1
                 x_col[j] += 1
                 if i==j:
-                    x_diag1[i] +=1
+                    x_diag1[0] +=1
                 elif i+j==2:
-                    x_diag2[i] +=1
+                    x_diag2[0] +=1
 
             elif current_matrix[i][j]=='o':
                 o_row[i] += 1
                 o_col[j] += 1
                 if i==j:
-                    o_diag1[i] +=1
+                    o_diag1[0] +=1
                 elif i+j==2:
-                    o_diag2[i] +=1
+                    o_diag2[0] +=1
 
+    result_array= [x_row, x_col, x_diag1, x_diag2, o_row, o_col, o_diag1, o_diag2]
+    print("complete array: ", result_array)
+    for i, arr in enumerate(result_array):
+            if 3 in arr:
+                if i < 4:
+                    print("player 1 wins")
+                else:
+                    print("player 2 wins")
 
-    print("x row: ", x_row)
-    print("x column: ", x_col)
-    print("o row: ", o_row)
-    print("o column: ", o_col)
-    print("x diag 1: ", x_diag1)
-    print("o diag 1: ", o_diag1)
-    print("x diag 2: ", x_diag2)
-    print("o diag 2: ", o_diag2)
-
-
-
-
-get_score(current_matrix)
-
+    # print("x row: ", x_row)
+    # print("x column: ", x_col)
+    # print("o row: ", o_row)
+    # print("o column: ", o_col)
+    # print("x diag 1: ", x_diag1)
+    # print("o diag 1: ", o_diag1)
+    # print("x diag 2: ", x_diag2)
+    # print("o diag 2: ", o_diag2)
+check_win(current_matrix)
 
 
 
