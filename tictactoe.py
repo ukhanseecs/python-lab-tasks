@@ -2,9 +2,9 @@
 # Create a 2D array of 3x3 to represent the game board
 
 current_matrix = [
-    ['o','x', 'x'],
-    ['x', 'o', 'o'],
-    ['o', 'o', 'x']
+    [0,0,0],
+    [0,0,0],
+    [0,0,0]
 ]
 
 
@@ -19,6 +19,7 @@ def current_state(current_matrix):
     print(current_matrix[0])
     print(current_matrix[1])
     print(current_matrix[2])
+
 current_state(current_matrix)
 
 #Create a function to check if a given move is valid (i.e., the cell is empty
@@ -86,22 +87,17 @@ def check_win(current_matrix):
                     o_diag2[0] +=1
 
     result_array= [x_row, x_col, x_diag1, x_diag2, o_row, o_col, o_diag1, o_diag2]
-    print("complete array: ", result_array)
+    #print("complete array: ", result_array)
     for i, arr in enumerate(result_array):
             if 3 in arr:
                 if i < 4:
                     print("player 1 wins")
+                    player1_win = True
                 else:
                     print("player 2 wins")
+                    player2_win = True
 
-    # print("x row: ", x_row)
-    # print("x column: ", x_col)
-    # print("o row: ", o_row)
-    # print("o column: ", o_col)
-    # print("x diag 1: ", x_diag1)
-    # print("o diag 1: ", o_diag1)
-    # print("x diag 2: ", x_diag2)
-    # print("o diag 2: ", o_diag2)
+
 #check_win(current_matrix)
 
 def check_draw(current_matrix):
@@ -121,20 +117,28 @@ def check_draw(current_matrix):
 current_player = player1
 # prompt to take input
 # input has to be i and j value
-for loop in range(0,9):
+# while there remains a zero on board
+filled_square = 0
+while filled_square !=9:
     print(current_player, "move: ")
     i=int(input("row number: "))
     j=int(input("column number: "))
-    if current_matrix[i][j] != 0:
+    if current_matrix[i][j] == 0:
         if current_player == player1:
             current_matrix[i][j] = 'x'
+            filled_square += 1
         elif current_player== player2:
             current_matrix[i][j] = 'o'
+            filled_square +=1
         if current_player == player1:
             current_player = player2
         elif current_player == player2:
             current_player = player1
-    print(current_matrix)
+    else:
+        print("ERROR!")
+        print("choose some other box")
+
+    current_state(current_matrix)
     check_win(current_matrix)
 
 
