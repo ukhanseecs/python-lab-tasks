@@ -2,15 +2,15 @@
 # Create a 2D array of 3x3 to represent the game board
 
 current_matrix = [
-    ['x', 'o', 'x'],
-    ['o', 'x', 0],
-    ['o', 0, 'x']
+    ['o','x', 'x'],
+    ['x', 'x', 'x'],
+    ['x', 'x', 'o']
 ]
 
 
 # Define the player symbols (e.g., "X" and "O").
-player1 = 'x'
-player2 = 'o'
+player1 = 'player 1 (x)'
+player2 = 'player 2 (o)'
 
 #Create a function to print the current state of the game board.
 
@@ -68,19 +68,25 @@ def check_win(current_matrix):
                 x_col[j] += 1
                 if i==j:
                     x_diag1[0] +=1
+                    if i==1:
+                        x_diag2[0] +=1
                 elif i+j==2:
                     x_diag2[0] +=1
+
+
 
             elif current_matrix[i][j]=='o':
                 o_row[i] += 1
                 o_col[j] += 1
                 if i==j:
                     o_diag1[0] +=1
+                    if i==1:
+                        o_diag2[0] +=1
                 elif i+j==2:
-                    o_diag2[0] +=1
+                    o_diag2[i] +=1
 
     result_array= [x_row, x_col, x_diag1, x_diag2, o_row, o_col, o_diag1, o_diag2]
-    print("complete array: ", result_array)
+    #print("complete array: ", result_array)
     for i, arr in enumerate(result_array):
             if 3 in arr:
                 if i < 4:
@@ -97,6 +103,30 @@ def check_win(current_matrix):
     # print("x diag 2: ", x_diag2)
     # print("o diag 2: ", o_diag2)
 check_win(current_matrix)
+
+def check_draw(current_matrix):
+    #Maintain a counter that keeps track of the number of cells that have been filled on the board.
+    #When this counter reaches the total number of cells on the board, check if no player has won the game.
+    filled_square=0
+    while filled_square != 9:
+        for i in range(0,3):
+            for j in range(0,3):
+                if current_matrix[i][j]!=0:
+                    filled_square +=1
+    print("game over")
+check_draw(current_matrix)
+
+#Define the main game loop that continues until the game has ended.
+#Inside the loop, prompt the current player to make a move.
+current_player = player1
+# prompt to take input
+# input has to be i and j value
+print(current_player, "move: ")
+i=input("row number: ")
+j=input("column number: ")
+
+
+
 
 
 
