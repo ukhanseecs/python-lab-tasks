@@ -23,11 +23,11 @@ def check_win(matrix):
 
     for i in range(3):
         if matrix[i][0] == matrix[i][1] == matrix[i][2] !=0:
-            print(f'{matrix[i][0]} wins''')
+            print(f'{matrix[i][0]} wins')
             game_exit = True
             return
         if matrix[0][i] == matrix[1][i] == matrix[2][i] !=0:
-            print(f'{matrix[0][i]} wins''')
+            print(f'{matrix[0][i]} wins')
             game_exit = True
             return
 
@@ -46,13 +46,14 @@ def check_win(matrix):
 def check_draw(current_matrix):
     global game_exit
 
-    filled_square=0
-    for i in range(0,3):
-        for j in range(0,3):
+    filled_square = 0
+    for i in range(3):
+        for j in range(3):
             if current_matrix[i][j] != 0:
-                filled_square +=1
-            if filled_square == 9:
-                game_exit = True
+                filled_square += 1
+    if filled_square == 9 and not game_exit:
+        print("It's a draw!")
+        game_exit = True
 
 
 def game_loop(x):
