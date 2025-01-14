@@ -64,8 +64,11 @@ def game_loop(x):
         current_state(current_matrix)
         print(f"{current_player}, it's your turn.")
         try:
-            i=int(input("row number (0-2): "))
-            j=int(input("column number (0-2): "))
+            i = int(input("row number (0-2): "))
+            j = int(input("column number (0-2): "))
+            if i < 0 or i > 2 or j < 0 or j > 2:
+                print("Invalid input. Please enter numbers between 0 and 2.")
+                continue
             if current_matrix[i][j] == 0:
                 if current_player == player1:
                     current_matrix[i][j] = 'x'
