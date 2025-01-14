@@ -1,5 +1,4 @@
-# Set up the game board
-# Create a 2D array of 3x3 to represent the game board
+# Description: A simple tic-tac-toe game.
 
 current_matrix = [
     [0,0,0],
@@ -7,142 +6,94 @@ current_matrix = [
     [0,0,0]
 ]
 
-
-# Define the player symbols (e.g., "X" and "O").
 player1 = 'player 1 (x)'
 player2 = 'player 2 (o)'
 
-#Create a function to print the current state of the game board.
-
-def current_state(current_matrix):
+def current_state(matrix):
     print("current game board")
-    print(current_matrix[0])
-    print(current_matrix[1])
-    print(current_matrix[2])
+    for row in matrix:
+        print(row)
 
 current_state(current_matrix)
 
-#Create a function to check if a given move is valid (i.e., the cell is empty
-# if there is zero at the place, it can be replaced
-# else, not allowed
+game_exit = False
 
-# print(current_matrix[1][2])
-# i=0
-# j=0   #later i and j will be user input
+def check_win(matrix):
+    global game_exit
 
-#if i < 3 and j < 3:
-
-#function to check move is correct
-# def check_validity(current_matrix):
-#     i=int(input("row:"))
-#     j=int(input("column: "))
-#     if current_matrix[i][j]==0:
-#         print("valid move")
-#     else:
-#         print("inavlid move")
-
-# check_validity(current_matrix)
-
-#function to get score
-def check_win(current_matrix):
-    #get the counnt of x's and o's in row 1
-    #make a loop
-    #that reads through each row
-    #and counts number of x and o
-    # three rows three columns two diagonals so total 8
-    # two players
-    # maintain 16 counts
-
-    x_row = [0, 0, 0]
-    x_col = [0, 0, 0]
-    o_row = [0, 0, 0]
-    o_col = [0, 0, 0]
-    x_diag1 = [0]
-    o_diag1 = [0]
-    x_diag2 = [0]
-    o_diag2 = [0]
-
-    for i in range(0,3):
-        for j in range(0,3):
-            if current_matrix[i][j]=='x':
-                x_row[i] += 1
-                x_col[j] += 1
-                if i==j:
-                    x_diag1[0] +=1
-                    if i==1:
-                        x_diag2[0] +=1
-                elif i+j==2:
-                    x_diag2[0] +=1
+    for i in range(3):
+        if matrix[i][0] == matrix[i][1] == matrix[i][2] !=0:
+            print(f'{matrix[i][0]} wins''')
+            game_exit = True
+            return
+        if matrix[0][i] == matrix[1][i] == matrix[2][i] !=0:
+            print(f'{matrix[0][i]} wins''')
+            game_exit = True
+            return
 
 
-
-            elif current_matrix[i][j]=='o':
-                o_row[i] += 1
-                o_col[j] += 1
-                if i==j:
-                    o_diag1[0] +=1
-                    if i==1:
-                        o_diag2[0] +=1
-                elif i+j==2:
-                    o_diag2[0] +=1
-
-    result_array= [x_row, x_col, x_diag1, x_diag2, o_row, o_col, o_diag1, o_diag2]
-    #print("complete array: ", result_array)
-    for i, arr in enumerate(result_array):
-            if 3 in arr:
-                if i < 4:
-                    print("player 1 wins")
-                    player1_win = True
-                else:
-                    print("player 2 wins")
-                    player2_win = True
+    if matrix[0][0] == matrix[1][1] == matrix[2][2] != 0:
+        print(f"{matrix[0][0]} wins!")
+        game_exit = True
+        return
+    if matrix[0][2] == matrix[1][1] == matrix[2][0] != 0:
+        print(f"{matrix[0][2]} wins!")
+        game_exit = True
+        return
 
 
-#check_win(current_matrix)
 
 def check_draw(current_matrix):
-    #Maintain a counter that keeps track of the number of cells that have been filled on the board.
-    #When this counter reaches the total number of cells on the board, check if no player has won the game.
+    global game_exit
+
     filled_square=0
-    while filled_square != 9:
-        for i in range(0,3):
-            for j in range(0,3):
-                if current_matrix[i][j] != 0:
+    for i in range(0,3):
+        for j in range(0,3):
+            if current_matrix[i][j] != 0:
+                filled_square +=1
+            if filled_square == 9:
+                game_exit = True
+
+
+def game_loop(x):
+    global game_exit
+    current_player = player1
+    filled_square = 0
+    while not game_exit:
+        current_state(current_matrix)
+        print(f"{current_player}, it's your turn.")
+        try:
+            i=int(input("row number (0-2): "))
+            j=int(input("column number (0-2): "))
+            if current_matrix[i][j] == 0:
+                if current_player == player1:
+                    current_matrix[i][j] = 'x'
+                    filled_square += 1
+
+                elif current_player== player2:
+                    current_matrix[i][j] = 'o'
                     filled_square +=1
-    print("game over")
-#check_draw(current_matrix)
 
-#Define the main game loop that continues until the game has ended.
-#Inside the loop, prompt the current player to make a move.
-current_player = player1
-# prompt to take input
-# input has to be i and j value
-# while there remains a zero on board
-filled_square = 0
-while filled_square !=9:
-    print(current_player, "move: ")
-    i=int(input("row number: "))
-    j=int(input("column number: "))
-    if current_matrix[i][j] == 0:
-        if current_player == player1:
-            current_matrix[i][j] = 'x'
-            filled_square += 1
-        elif current_player== player2:
-            current_matrix[i][j] = 'o'
-            filled_square +=1
-        if current_player == player1:
-            current_player = player2
-        elif current_player == player2:
-            current_player = player1
-    else:
-        print("ERROR!")
-        print("choose some other box")
+                # turn switching
+                if current_player == player1:
+                    current_player = player2
+                elif current_player == player2:
+                    current_player = player1
+            else:
+                print("ERROR!")
+                print("choose some other box")
 
-    current_state(current_matrix)
-    check_win(current_matrix)
+        except ValueError:
+            print("Invalid input. Please enter numbers between 0 and 2.")
+
+        current_state(current_matrix)
+        check_win(current_matrix)
+        check_draw(current_matrix)
+        if game_exit == True:
+            print("GAME OVER")
 
 
-
+game_loop(current_matrix)
 
 
 
